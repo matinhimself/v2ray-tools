@@ -23,7 +23,7 @@
 
 - ### ArvanCloud
   - Over cdn traffic is limited to 200GB per domain for free plan.
-  - PaaS is free. take a look at simple port forwarding docker solutions.
+  - PaaS is (Almost) free. take a look at simple port forwarding docker solutions.
   
 
 
