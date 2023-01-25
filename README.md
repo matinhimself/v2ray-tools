@@ -30,7 +30,7 @@
 ## Monitoring
 - Both xray and v2fly cores support TrafficStats Query.
 - Add API config to your inbounds and query stats with core commands in [docs](https://guide.v2fly.org/en_US/advanced/traffic.html).
-- You can run a prometheus instance and an stats exposer on your server and use Grafana Cloud for a simple monitoring.
+- You can run a prometheus instance and a stats exposer on your server and use Grafana Cloud for a simple monitoring.
 - If you want to query a user status, just use an `irate` functionality in whatever tools you are using. the server stats will reset with a simple core restart.
 
 ## Clients
