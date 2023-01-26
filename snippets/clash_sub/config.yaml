@@ -1,0 +1,139 @@
+port: 7890
+socks-port: 7891
+allow-lan: true
+mode: Rule
+log-level: debug
+external-controller: 127.0.0.1:3090
+
+dns:
+  enable: true
+  ipv6: true
+  enhanced-mode: redir-host
+  nameserver:
+    - https://azure.cloudflare-dns.com/dns-query
+    - https://puredns.org/dns-query
+    - https://dns.dnshome.de/dns-query
+    - https://dns.hostux.net/dns-query
+    - https://NoTMIKE.dev/dns.php
+    - https://doh.42l.fr/dns-query
+    - https://DNS.HeN.ee/dns-query
+    - https://doh.dnswarden.com/uncensored
+    - tls://one.one.one.one:853
+    - tls://dns.google:853
+    - https://dns.google/dns-query
+    - https://cloudflare-dns.com/dns-query
+    - https://dns.quad9.net/dns-query
+    - https://mozilla.cloudflare-dns.com/dns-query
+    - https://EU2.DNS.LAVATE.CH/dns-query
+    - https://DANDELIONSPROUT.Asuscomm.com:2501/dns-query
+    - https://dns.switch.ch/dns-query
+    - https://dnsforge.de/dns-query
+    - https://dns.adguard.com/dns-query
+    - https://doh-de.blahdns.com/dns-query
+  fallback:
+    - https://azure.cloudflare-dns.com/dns-query
+    - https://puredns.org/dns-query
+    - https://dns.dnshome.de/dns-query
+    - https://dns.hostux.net/dns-query
+    - https://NoTMIKE.dev/dns.php
+    - https://doh.42l.fr/dns-query
+    - https://DNS.HeN.ee/dns-query
+    - https://doh.dnswarden.com/uncensored
+    - tls://one.one.one.one:853
+    - tls://dns.google:853
+    - https://dns.google/dns-query
+    - https://cloudflare-dns.com/dns-query
+    - https://dns.quad9.net/dns-query
+    - https://mozilla.cloudflare-dns.com/dns-query
+    - https://EU2.DNS.LAVATE.CH/dns-query
+    - https://DANDELIONSPROUT.Asuscomm.com:2501/dns-query
+    - https://dns.switch.ch/dns-query
+    - https://dnsforge.de/dns-query
+    - https://dns.adguard.com/dns-query
+    - https://doh-de.blahdns.com/dns-query
+  fallback-filter:
+    geoip: true
+    geoip-code: IR
+    ipcidr:
+      - 240.0.0.0/4
+      - 0.0.0.0/32
+      - 127.0.0.1/32
+    domain:
+      - +.google.com
+      - +.facebook.com
+      - +.youtube.com
+      - +.gvt1.com
+      - '+.youtube.com'
+      - '+.facebook.com'
+      - '+.twitter.com'
+      - '+.bing.com'
+  fake-ip-filter:
+    - "*.lan"
+    - stun.*.*.*
+    - stun.*.*
+    - time.windows.com
+    - time.nist.gov
+    - time.apple.com
+    - time.asia.apple.com
+    - "*.openwrt.pool.ntp.org"
+    - pool.ntp.org
+    - ntp.ubuntu.com
+    - time1.apple.com
+    - time2.apple.com
+    - time3.apple.com
+    - time4.apple.com
+    - time5.apple.com
+    - time6.apple.com
+    - time7.apple.com
+    - time1.google.com
+    - time2.google.com
+    - time3.google.com
+    - time4.google.com
+    - api.joox.com
+    - joox.com
+    - "*.xiami.com"
+    - "*.msftconnecttest.com"
+    - "*.msftncsi.com"
+    - "*.*.stun.playstation.net"
+    - xbox.*.*.microsoft.com
+    - "*.ipv6.microsoft.com"
+    - speedtest.cros.wr.pvp.net
+
+
+proxies:
+  - {"type":"vmess","name":"<REMARK>-vmess-limited_2","ws-opts":{"path":"/0x8vws","headers":{"host":"z.domain.xyz"}},"server":"cdn.amiir.tech","port":443,"uuid":"<UUID>","alterId":0,"cipher":"auto","network":"ws","tls":true}
+  - {"type":"vmess","name":"<REMARK>-vmess-direct","ws-opts":{"path":"/0x8vws","headers":{"host":"z.domain.xyz"}},"server":"z.domain.xyz","port":443,"uuid":"<UUID>","alterId":0,"cipher":"auto","network":"ws","tls":true}
+  - {"type":"vmess","name":"<REMARK>-vmess-limited_1","ws-opts":{"path":"/0x8vws","headers":{"host":"z.domain.xyz"}},"server":"185.143.233.120","port":443,"uuid":"<UUID>","alterId":0,"cipher":"auto","network":"ws","tls":true}
+proxy-groups:
+  - name: "🚀 Select"
+    type: select
+    proxies:
+      - DIRECT
+      - <REMARK>-vmess-direct
+      - <REMARK>-vmess-limited_1
+      - <REMARK>-vmess-limited_2
+      - <REMARK>
+
+rule-providers:
+  iran:
+    type: http
+    behavior: classical
+    url: "https://github.com/chiroots/iran-hosted-domains/releases/latest/download/clash_rules.yaml"
+    path: ./ruleset/iran.yaml
+    interval: 432000
+
+rules:
+  - RULE-SET,iran,DIRECT
+  # > Spotify
+  - DOMAIN-KEYWORD,spotify.com,DIRECT
+  # > LAN
+  - DOMAIN-SUFFIX,local,DIRECT
+  - IP-CIDR,127.0.0.0/8,DIRECT
+  - IP-CIDR,172.16.0.0/12,DIRECT
+  - IP-CIDR,192.168.0.0/16,DIRECT
+  - IP-CIDR,10.0.0.0/8,DIRECT
+  - IP-CIDR,17.0.0.0/8,DIRECT
+  - IP-CIDR,100.64.0.0/10,DIRECT
+  # > rules?]
+  - GEOIP,IR,DIRECT
+  - MATCH,🚀 Select
