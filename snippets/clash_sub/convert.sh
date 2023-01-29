@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mkdir -p /etc/v2ray-agent/subscribe/clash/
+mkdir -p /subscribe/clash/
 while read email uuid; do
     subAccount=$(echo "${email}" | awk -F "[_]" '{print $1}')_$(echo "${uuid}_currentHost" | md5sum | awk '{print $1}')
     filename=/etc/v2ray-agent/subscribe/clash/$subAccount.yaml
